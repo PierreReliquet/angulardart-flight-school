@@ -18,8 +18,7 @@ required by Dart and include it in the index.html. In fact it is going to be req
 * Shadow_dom is going to be used later but it basically allow us to use a subset of webcomponents when using AngularDart @Component.
 * addressbook.dart is our script containing the main function. /!\ WARNING, Dart authorizes only one Dart script to be added in 
 the index.html since only one main method can be ran.
-* dart.js actually bootstraps our application by checking if the Dart VM is available otherwise it tries to fallback to the JS version
-(but this requires the Dart version to have been compiled to JS).
+* dart.js actually bootstraps our application by checking if the Dart VM is available otherwise it tries to fallback to the JS version (but this requires the Dart version to have been compiled to JS).
 
 At this point it is required to add the missing libraries to the pubspec.yaml file (shadow_dom and browser libraries).
 
@@ -130,6 +129,7 @@ class Contact {
 There is two things which may be surprising when coming from a language like Java : 
 * the named constructor Contact.fromJson 
 * the toJson method
+
 In Dart, there is for now no simple way to handle the conversion from a complex object to JSON and vice versa. Some
 way have been implemented by the community but there is nothing which convinced me like Jackson in Java. 
 
@@ -156,8 +156,8 @@ Now we just have to create the missing part which is our first controller, to do
 Dart which provides an awesome way of declaring some metadata: the annotations. So in our case we are going to use
 a *@Controller* annotation with some parameter amongst them we can notice :
 * the *selector* which is a CSS selector used to detect on which part of the DOM the controller should be activated.
-* the *publishAs* which indicates under which name the developer can access it in his templates. For folks coming from 
-JavaScript this is closely related with the new 1.2 syntax for controller known as "controller as". 
+* the *publishAs* which indicates under which name the developer can access it in his templates. For folks coming from JavaScript this is closely related with the new 1.2 syntax for controller known as "controller as". 
+
 So when all this is tied together the code of the class is: 
 ```Dart
 part of angulardart_flight_school_controllers;
@@ -185,6 +185,7 @@ Now we must update the /web/addressbook.dart file to add
 * the import of package:angular/angular.dart
 * the import of package:angulardart_flight_school/controllers.dart
 * the registration of a new module integrating our newly created controller
+
 With all the code, the addressbook.dart should now look like : 
 ```Dart
 library addressbook;
@@ -272,6 +273,7 @@ injection when minifying the code. For information, this feature is coming in An
 * Removes the list of contacts hard-coded in the ContactList controller
 * Add a new instance variable whom type would be Contacts (and add the corresponding import) and name would be contactsSvc
 * Create a constructor which affects the contactsSvc variable and get the contacts list.
+
 Once done your controller should look like this : 
 ```Dart
 part of angulardart_flight_school_controllers;
