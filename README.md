@@ -214,7 +214,79 @@ And then replace the static list by dynamic list using ng-repeat and accessing t
 ```
 *Tip - There is two lists to replace*
 
-# Step 3 - Services
+# Step 3 - Services & Dependency injection
+For now the ContactList controller contains a list of contacts but in a real app the list of data would not be stored
+in the controller. It would be provided by a service which would get the data from either local storage (local storage,
+session storage or embedded database) or remote API. 
+
+In this part the list of contacts is going to be externalized in a Contacts service which will provide the data and 
+might also provide some useful methods such as findById, update, remove and so on... To do so two files must be added:
+/lib/services.dart and /lib/services/contacts.dart. For those files we are going to create the same structure as the controllers.
+
+The services.dart file declares the library and the parts composing itself : 
+```Dart
+library angulardart_flight_school_services;
+
+import 'package:angular/angular.dart';
+import 'package:angulardart_flight_school/model/contact.dart';
+
+part 'services/contacts.dart';
+```
+The contacts.dart contains the service enabling to get the contacts. The only specificity is that there is again an annotation
+to declare that the service can be injected within AngularDart module. 
+```Dart
+part of angulardart_flight_school_services;
+
+@Injectable()
+class Contacts {
+  List<Contact> _contacts = [ new Contact(0, "Wayne", "Bruce", "Gotham city","555-BATMAN" ),
+                              new Contact(1, "Parker", "Peter", "New York","555-SPDRMN" ),
+                              new Contact(2, "Storm", "Jane", "Baxter building, New York","555-INVGRL" ),
+                              new Contact(3, "Richards", "Red", "Baxter building, New York","555-MRFANT" ),
+                              new Contact(4, "Storm", "Johnny", "Baxter building, New York","555-TORCH" ),
+                              new Contact(5, "Grimm", "Benjamin", "Baxter building, New York","555-THING" ),
+                              new Contact(6, "Murdock", "Matt", "San Francisco","555-DARDVL" ),
+                              new Contact(7, "Stark", "Tony", "Stark tower, New York","555-IRNMAN" )];
+  
+  // Sample getter to illustrate the cool dart syntax for getters 
+  List<Contact> get contacts => _contacts;
+}
+```
+Then we have to update the addressbook.dart file to add the import towards the services.dart and
+to register the Contacts service, so angular will be aware that it might inject the Contacts service : 
+```Dart
+main() {
+  applicationFactory()
+      ..addModule(
+        new Module()
+          ..bind(ContactList)
+          ..bind(Contacts)
+        )
+      ..run();
+}
+```
+Finally let's replace the list in the controller by one recovered from the service. To do so, a constructor is going 
+to be required to enable the DI. One specificity of AngularDart over AngularJS is that AngularDart is injecting the 
+dependency based on their types and not anymore on their names which annihilates the risk of losing the dependency
+injection when minifying the code. For information, this feature is coming in AngularJS 2.0. The steps are : 
+* Removes the list of contacts hard-coded in the ContactList controller
+* Add a new instance variable whom type would be Contacts (and add the corresponding import) and name would be contactsSvc
+* Create a constructor which affects the contactsSvc variable and get the contacts list.
+Once done your controller should look like this : 
+```Dart
+part of angulardart_flight_school_controllers;
+
+@Controller(selector: '[contact-list]', publishAs: 'contactList')
+class ContactList {
+  Contacts contactsSvc;
+  List<Contact> contacts;
+  
+  ContactList(this.contactsSvc) {
+    contacts = contactsSvc.contacts;
+  }
+}
+```
+
 # Step 4 - Components & Decorators
 # Step 5 - Filters
 # Step 6 - Routing and templating
