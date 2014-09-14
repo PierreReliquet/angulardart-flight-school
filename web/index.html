@@ -9,84 +9,66 @@
     <link href="css/zencontact.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="brand" href="#">NgContacts</a>
-            <ul class="nav">
-                <li class="active">
-                    <a href="/">My Contacts</a>
-                </li>
-                <li>
-                    <a href="edit.html">Add new contact</a>
-                </li>
-            </ul>
-            <ul class="nav pull-right">
-                <li><a href="#">Login</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="hero-unit">
-        <h1>NgContacts</h1>
-
-        <h2>Taking care of your people, one at a time.</h2>
-    </div>
-    <div class="row">
-        <div class="span4">
-            <div class="well">
-                <h2>Contacts</h2>
-
-                <form class="form-search">
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-search"></i></span>
-                        <input type="text" class="input-medium" ng-model="search">
-                    </div>
-                </form>
-                <div ng-show="search">You searched : {{search}}</div>
-
-                <ul class="unstyled">
-                    <li><a href="">Pierre Reliquet</a></li>
-                    <li><a href="">Julien Landuré</a></li>
-                    <li><a href="">Chuck Norris</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="span8">
-            <div class="row">
-                <div class="contact-card span4">
-                    <div class="contact-card-inner">
-                        <h4>Pierre Reliquet</h4>
-
-                        <div class="contact-address">Arc de Triomphe, Paris</div>
-                        <div class="contact-phone">01 01 01 01 01</div>
-                    </div>
-                </div>
-                <div class="contact-card span4">
-                    <div class="contact-card-inner">
-                        <h4>Julien Landuré</h4>
-
-                        <div class="contact-address">Tour Eiffel, Paris</div>
-                        <div class="contact-phone">01 01 01 01 01</div>
-                    </div>
-                </div>
-                <div class="contact-card span4">
-                    <div class="contact-card-inner">
-                        <h4>Chuck Norris</h4>
-
-                        <div class="contact-address">Who knows ...</div>
-                        <div class="contact-phone">01 01 01 01 01</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="packages/shadow_dom/shadow_dom.min.js"></script>
-<script type="application/dart" src="addressbook.dart"></script>
-<script src="packages/browser/dart.js"></script>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+          <div class="container">
+              <a class="brand" href="#">NgContacts</a>
+              <ul class="nav">
+                  <li class="active">
+                      <a href="/">My Contacts</a>
+                  </li>
+                  <li>
+                      <a href="edit.html">Add new contact</a>
+                  </li>
+              </ul>
+              <ul class="nav pull-right">
+                  <li><a href="#">Login</a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  
+  <div class="container">
+      <div class="hero-unit">
+          <h1>NgContacts</h1>
+  
+          <h2>Taking care of your people, one at a time.</h2>
+      </div>
+      <div class="row" contact-list>
+          <div class="span4">
+              <div class="well">
+                  <h2>Contacts</h2>
+  
+                  <form class="form-search">
+                      <div class="input-prepend">
+                          <span class="add-on"><i class="icon-search"></i></span>
+                          <input type="text" class="input-medium" ng-model="search">
+                      </div>
+                  </form>
+                  <div ng-show="search">You searched : {{search}}</div>
+  
+                  <ul class="unstyled">
+                      <li ng-repeat="contact in contactList.contacts"><a href="">{{contact.firstName}} {{contact.lastName}}</a></li>
+                  </ul>
+              </div>
+          </div>
+  
+          <div class="span8">
+              <div class="row">
+                  <div class="contact-card span4" ng-repeat="contact in contactList.contacts">
+                      <div class="contact-card-inner">
+                          <h4>{{contact.firstName}} {{contact.lastName}}</h4>
+  
+                          <div class="contact-address">{{contact.address}}</div>
+                          <div class="contact-phone">{{contact.phone}}</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script src="packages/shadow_dom/shadow_dom.min.js"></script>
+  <script type="application/dart" src="addressbook.dart"></script>
+  <script src="packages/browser/dart.js"></script>
 </body>
 </html>
