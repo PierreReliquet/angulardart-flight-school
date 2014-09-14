@@ -1,5 +1,6 @@
 library addressbook;
+import 'package:angular/application_factory.dart';
 
 main() {
-  print('Hello world!');
+  applicationFactory()..run();
 }

@@ -9,3 +9,5 @@ dependencies:
   browser: 0.10.0+2
   js: any
   shadow_dom: any
+transformers:
+- angular

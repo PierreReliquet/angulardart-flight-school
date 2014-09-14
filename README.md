@@ -38,6 +38,50 @@ look to your console (F12 for the Developer Tools) you should even see your "Hel
 ### Setting up AngularDart and making our first binding
 
 We now need to bootstrap AngularDart to start using it. As a reminder this is how we would have done it in JavaScript:
+```Html
+<html ng-app="NgContacts">
+...
+</html>
+```
 ```JavaScript
 angular.module('NgContacts', [])
 ``` 
+Within AngularDart, this is quite different and we still have to declare the ng-app in the HTML head
+```Html
+<html ng-app>
+...
+</html>
+```
+The reader would notice that there is no module name in AngularDart. Then in our main method we just have to write down few lines : 
+```Dart
+main() {
+	applicationFactory().run();
+}
+```
+And this is it the application is *almost* bootstrapped. What must be done now is update the pubspec.yaml file to add the following lines
+```YAML
+transformers:
+- angular
+```
+The reason why a transformer is added is that AngularDart at startup time is going to generate code to create the link between all 
+the objects to provide the dependency injection.
+
+Now we can run our application but for now we would not know if it is working so to check that we are going to add a simple binding. 
+To do so, find in the index.html the following section : 
+```HTML
+<form class="form-search">
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-search"></i></span>
+        <input type="text" class="input-medium">
+    </div>
+</form> 
+```
+And on the input add a ng-model="search" to bind the user's input in the search variable. Then below the form tag, just add a simple
+Angular binding like that : 
+```HTML
+<div ng-show="search">You searched : {{search}}</div>
+```
+And we're set, now you can just right click on your index.html and hit run in Dartium. 
+
+*NB : for folks running under linux Dartium might tells you that your are missing libudev.so.0 in that case refer to [this issue](https://code.google.com/p/dart/issues/detail?id=12325) 
+which indicates how to correct that problem by creating a symbolic link.* 
