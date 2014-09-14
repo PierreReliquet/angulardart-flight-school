@@ -198,7 +198,7 @@ main() {
       ..run();
 }
 ```
-* Attentive readers would have noticed that in this example we are not using the simple period to call the methods
+*Attentive readers would have noticed that in this example we are not using the simple period to call the methods
 but we are using [method cascades](http://news.dartlang.org/2012/02/method-cascades-in-dart-posted-by-gilad.html)
 which avoids to write fluent APIs and cleans the syntax in, in my opinion, a huge way.*
 
@@ -214,3 +214,7 @@ And then replace the static list by dynamic list using ng-repeat and accessing t
 ```
 *Tip - There is two lists to replace*
 
+# Step 3 - Services
+# Step 4 - Components & Decorators
+# Step 5 - Filters
+# Step 6 - Routing and templating
