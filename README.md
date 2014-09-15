@@ -290,6 +290,7 @@ class ContactList {
 ```
 
 # Step 4 - Directives aka Components & Decorators
+
 AngularDart has not yet reached version 1.0 but some major differences can already be noticed. Among them some resources 
 have been renamed which aims at clarifying the use of some APIs such as the directive which was in AngularJS not really
 the easiest API ever written.
@@ -437,6 +438,61 @@ With the following line :
 ```
 And this is it! Here is the first component of the ngContacts app, there is now a reusable vcard which can
 be added in any screen of the application.
+
+## Decorators
+The new objective is to discover the decorators and to do so we are going to develop our own tooltip system which
+displays for a given contact its address and phone with the following format : "address - phone". 
+
+After having create the /lib/decorators.dart file and the /lib/decorators folder, one must create the /lib/decorators/tooltip.dart
+file which is going to contain the decorator's behavior. 
+
+This file must : 
+* Declare a tooltip class as part of the angulardart_flight_school_decorators library
+* Declare that the tooltip class is a decorator with the '[tooltip]' selector
+* Add two event listeners in the constructor, one to add the tooltip on mouseenter and the second one to remove it on mouseleave
+* Have a bound contact as an instance variable to be able to access its data when displaying the tooltip (using NgOneWay annotation)
+
+This gives us the following file : 
+```Dart
+part of angulardart_flight_school_decorators;
+
+@Decorator(selector: '[tooltip]')
+class Tooltip {
+  
+  Element _elm;
+  
+  @NgOneWay('tooltip')
+  Contact tooltip;
+  
+  Tooltip(this._elm) {
+    this._elm.onMouseEnter.listen((MouseEvent e) {
+      DivElement div = new Element.html("<div id='tooltip'>${tooltip.address} - ${tooltip.phone}</div>");
+      div.style
+        ..position = 'absolute'
+        ..left = '${e.page.x + 10}px'
+        ..top = '${e.page.y + 10}px'
+        ..padding = '5px'
+        ..borderRadius = '5px'
+        ..backgroundColor = 'white'
+        ..border = 'solid 1px black';
+      document.body.append(div);
+    });
+    this._elm.onMouseLeave.listen((MouseEvent e) {
+      var tooltip = document.querySelector('#tooltip');
+      if (tooltip != null) {
+        tooltip.remove();
+      }
+    });
+  }
+}
+```
+
+Then the Tooltip class must be added to the angular module and finally used inside the index.html file : 
+```Html
+<li ng-repeat="contact in contactList.contacts"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
+```
+
+Now run the application and go over one of the contact in the list on the left and look at your incredible tooltips!
 
 # Step 5 - Filters aka Formatters
 Within AngularDart the filters have, just like the directives, being renamed in order to clarify their meanings.

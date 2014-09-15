@@ -48,7 +48,7 @@
                   <div ng-show="search">You searched : {{search}}</div>
   
                   <ul class="unstyled">
-                      <li ng-repeat="contact in contactList.contacts"><a href="">{{contact.firstName}} {{contact.lastName}}</a></li>
+                      <li ng-repeat="contact in contactList.contacts"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
                   </ul>
               </div>
           </div>
