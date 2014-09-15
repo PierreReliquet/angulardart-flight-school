@@ -5,6 +5,7 @@ import 'package:angulardart_flight_school/controllers.dart';
 import 'package:angulardart_flight_school/services.dart';
 import 'package:angulardart_flight_school/components.dart';
 import 'package:angulardart_flight_school/decorators.dart';
+import 'package:angulardart_flight_school/formatters.dart';
 
 main() {
   applicationFactory()
@@ -14,6 +15,7 @@ main() {
           ..bind(Contacts)
           ..bind(VCard)
           ..bind(Tooltip)
+          ..bind(SearchFilter)
         )
       ..run();
 }

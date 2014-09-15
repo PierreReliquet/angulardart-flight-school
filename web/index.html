@@ -48,14 +48,14 @@
                   <div ng-show="search">You searched : {{search}}</div>
   
                   <ul class="unstyled">
-                      <li ng-repeat="contact in contactList.contacts"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
+                      <li ng-repeat="contact in contactList.contacts | doSearch:search"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
                   </ul>
               </div>
           </div>
   
           <div class="span8">
               <div class="row">
-                <vcard contact="contact" class="span4" ng-repeat="contact in contactList.contacts"></vcard>
+                <vcard contact="contact" class="span4" ng-repeat="contact in contactList.contacts | doSearch:search"></vcard>
               </div>
           </div>
       </div>

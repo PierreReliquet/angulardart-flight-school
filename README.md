@@ -527,6 +527,7 @@ are the following :
 * Returns a new list with all the contacts whom first or last names match the given string
 
 */!\ You must explicitly handle the case where the search is null*
+
 */!\ Do not forget to register the formatter in the main method*
 
 An example of solution is given below:
@@ -545,5 +546,12 @@ class SearchFilter {
   }
 }
 ```
+
+Then register it inside the AngularDart module to be able to use it inside the application and finally use it inside
+the index.html file to filter the contacts dynamically. There is two lists to filter but the use is like : 
+```Html
+<li ng-repeat="contact in contactList.contacts | doSearch:search"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
+``` 
+
  
 # Step 6 - Routing and templating
