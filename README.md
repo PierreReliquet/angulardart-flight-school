@@ -350,20 +350,19 @@ the selector and publishAs parameters. Secondly, it can be noticed that we are r
 * the template url which is the location (once deployed) where the template of our web component can be found
 * the css url which is the style which is going to be applied to the web component 
 
-*/!\ as expressed in the web component API, the custom component will not be aware of your application style and
-your component style is not going to leak outside of your component. This means that if I have the following template: *
+/!\ as expressed in the web component API, the custom component will not be aware of your application style and
+your component style is not going to leak outside of your component. This means that if I have the following template:
 ```Html
 <div class="contact-card">Foo</div>
 ```
-* And my app declare the following CSS rule*
+And the application declare the following CSS rule
 ```CSS
 div.contact-card {
 	background-color: black;
 }
 ```
-* This rule is going to be ignored since the web component are totally agnostic of the external CSS. In the same
-way if a rule was written in the component CSS, this rule would not be applied to the main app even if it matched some
-elements.* 
+This rule is going to be ignored since the web component are totally agnostic of the external CSS. In the same
+way if a rule was written in the component CSS, this rule would not be applied to the main app even if it matched some elements. 
 
 The content of the two files is given below:
 ```Html
