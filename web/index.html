@@ -15,14 +15,8 @@
               <a class="brand" href="#">NgContacts</a>
               <ul class="nav">
                   <li class="active">
-                      <a href="/">My Contacts</a>
+                      <a href="#/list">My Contacts</a>
                   </li>
-                  <li>
-                      <a href="edit.html">Add new contact</a>
-                  </li>
-              </ul>
-              <ul class="nav pull-right">
-                  <li><a href="#">Login</a></li>
               </ul>
           </div>
       </div>
@@ -34,31 +28,7 @@
   
           <h2>Taking care of your people, one at a time.</h2>
       </div>
-      <div class="row" contact-list>
-          <div class="span4">
-              <div class="well">
-                  <h2>Contacts</h2>
-  
-                  <form class="form-search">
-                      <div class="input-prepend">
-                          <span class="add-on"><i class="icon-search"></i></span>
-                          <input type="text" class="input-medium" ng-model="search">
-                      </div>
-                  </form>
-                  <div ng-show="search">You searched : {{search}}</div>
-  
-                  <ul class="unstyled">
-                      <li ng-repeat="contact in contactList.contacts | doSearch:search"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
-                  </ul>
-              </div>
-          </div>
-  
-          <div class="span8">
-              <div class="row">
-                <vcard contact="contact" class="span4" ng-repeat="contact in contactList.contacts | doSearch:search"></vcard>
-              </div>
-          </div>
-      </div>
+      <ng-view></ng-view>
   </div>
   <script src="packages/shadow_dom/shadow_dom.min.js"></script>
   <script type="application/dart" src="addressbook.dart"></script>

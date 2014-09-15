@@ -10,4 +10,9 @@ dependencies:
   js: any
   shadow_dom: any
 transformers:
-- angular
+- angular:
+   # https://github.com/angular/angular.dart/issues/1279 for now we need to add manually the files to include in the transformer
+   html_files:
+    - web/partials/edit.html
+    - web/partials/list.html
+    - web/partials/view.html

@@ -552,6 +552,141 @@ the index.html file to filter the contacts dynamically. There is two lists to fi
 ```Html
 <li ng-repeat="contact in contactList.contacts | doSearch:search"><a tooltip="contact" href="">{{contact.firstName}} {{contact.lastName}}</a></li>
 ``` 
-
  
 # Step 6 - Routing and templating
+
+The AngularDart roundtrip is almost over but there is one last piece to discover. Any single page application is obviously made of one single page but 
+also has many views. The routing is consequently necessary to be able to have rich internet application. 
+
+When coming from AngularJS, two solutions might come in mind : 
+* ngRoute the (too) simple but efficient provided by the Angular core team since 1.0
+* ui-router the community router extremely powerful which supports the nested views and many cool stuff
+
+In AngularDart, the router has been rewritten which means that it offers more abilities than the ngRoute router and for instance offers to nest routes.
+
+The router is based on the concept of function as first-class citizen since all the routing is handled by a single function which must comply with the 
+[RouteInitializerFn typedef](https://docs.angulardart.org/#angular/angular-routing@id_RouteInitializerFn). This methods takes two parameters :
+* The Router, the class which stores the url => handler relationship
+* The RouteViewFactory, a factory used to create the previous relationship
+
+In ngContacts, three routes are going to be available : 
+* /list - the list of all the contacts and is also the default route
+* /contact/{id}/view - the view of a specific contact (all field disabled)
+* /contact/{id}/edit - the edition of a contact
+
+The routing is going to be handled by the /lib/routing.dart file 
+```Dart
+library angulardart_flight_school_routing;
+
+import "package:angular/angular.dart";
+
+void addressBookRouter(Router router, RouteViewFactory views) {
+  views.configure({
+    'contact': ngRoute(
+          path: '/contact/:id',
+          mount: {
+            'edit': ngRoute(
+                path: '/edit',
+                view: 'partials/edit.html'
+            ),
+            'view': ngRoute(
+                path: '/view',
+                view: 'partials/view.html'
+            )
+          }),
+    'list': ngRoute(
+        path: '/list',
+        view: 'partials/list.html',
+        defaultRoute : true)
+  });
+}
+```
+As one can see on the previous code snippet three templates are required. These templates result from an extract of the index.html and edit.html file content. 
+To simplify one might get the templates directly from the [github repository](https://github.com/PierreReliquet/angulardart-flight-school/tree/master/web/partials).
+
+Then once the templates are recovered it is required to add a new controller which is going to handle the display and/or edit of a single contact. 
+This controller is named ContactEdit and must be added as part of the angulardart_flight_school_controllers library. The only specific part of that controller
+is that on instantiation time, one must recover the contact id from the address bar to recover the right contact in the service; this can be done through the
+RouteProvider.parameters map. Otherwise this controller is standard as shown below:  
+
+```Dart
+part of angulardart_flight_school_controllers;
+
+@Controller(
+    selector: '[contact-edit]',
+    publishAs: 'contactEdit'
+)
+class ContactEdit {
+  Contact contact;
+  RouteProvider routeProvider;
+  Contacts contactsSvc;
+  
+  ContactEdit(this.contactsSvc, this.routeProvider) {
+    contact = contactsSvc.contacts.where((c) => c.id == int.parse(routeProvider.parameters['id'])).first;
+  }
+
+  void update() {
+    // TODO some real code could be written here by the developer to test the utility functions on collections
+    print('updated');
+  }
+}
+```
+The controller is now ready and the view (index.html) must be updated! All the div.row tag must be removed and replaced by the ng-view component. 
+*/!\ In AngularJS ng-view can be either a decorator or a component but in AngularDart it is only a component*
+
+The div.container element now contains only : 
+```Html
+<div class="hero-unit">
+	<h1>NgContacts</h1>
+    <h2>Taking care of your people, one at a time.</h2>
+</div>
+<ng-view></ng-view>
+``` 
+The addressbook.dart file must also be updated to register : 
+* The ContactEdit controller
+* The RouteInitializerFn function
+* The NgRoutingUsePushState, this component indicates to AngularDart whether it should listen to the onPopState event (real url change) or onHashChange
+event which corresponds to a change after the hashbang sign (#). This is the standard Angular routing system.
+
+The code of the addresssbook.dart is finally : 
+```Dart
+library addressbook;
+import 'package:angular/application_factory.dart';
+import 'package:angular/angular.dart';
+import 'package:angulardart_flight_school/controllers.dart';
+import 'package:angulardart_flight_school/services.dart';
+import 'package:angulardart_flight_school/components.dart';
+import 'package:angulardart_flight_school/decorators.dart';
+import 'package:angulardart_flight_school/formatters.dart';
+import 'package:angulardart_flight_school/routing.dart';
+
+main() {
+  applicationFactory()
+      ..addModule(
+        new Module()
+          ..bind(ContactList)
+          ..bind(ContactEdit)
+          ..bind(Contacts)
+          ..bind(VCard)
+          ..bind(Tooltip)
+          ..bind(SearchFilter)
+          ..bind(RouteInitializerFn, toValue: addressBookRouter)
+          // Required otherwise angulardart does not know how to interprete the route
+          ..bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false))
+        )
+      ..run();
+}
+``` 
+
+At this point everything should be running fine, however there is, fow now, one last thing to do : register the partials into the pubspec.yaml file so that the 
+angular transformer is going to be aware that during the transformation, those files should be included. The transformers section of the pubspec.yaml file finally looks like : 
+```Yaml
+transformers:
+- angular:
+   # https://github.com/angular/angular.dart/issues/1279 for now we need to add manually the files to include in the transformer
+   html_files:
+    - web/partials/edit.html
+    - web/partials/list.html
+    - web/partials/view.html
+
+```
