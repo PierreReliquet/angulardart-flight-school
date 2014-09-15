@@ -1,6 +1,6 @@
 This is a workshop developped for the AngularDart Flight School event in Nantes organized by the GDG.
 
-The aim is to develop a sample of address book to show how powerful AngularDart is.
+The aim is to develop a sample of address book to show how powerful is AngularDart.
 
 This workshop is divided in multiple steps, each step includes developments documented in this readme. If you have any trouble with 
 one step, do not worry you can find the solution in the next step tag / branch. 
@@ -290,5 +290,56 @@ class ContactList {
 ```
 
 # Step 4 - Components & Decorators
-# Step 5 - Filters
+# Step 5 - Filters aka Formatters
+Within AngularDart the filters have, just like the directives, being renamed in order to clarify their meanings.
+Filters are now called Formatters and this seems logical when we notice that the AngularJS documentation indicates 
+that the purpose of an AngularJS' filter is to format the data for display which leads us to understand easily the meaning
+of formatter. In addition, this avoids having a filter formatter inside the category of filters which was quite
+ambiguous.
+
+As it has been seen through Controllers, Decorators & Components AngularDart tried to harmonize the API to provide
+a smooth developer experience accross AngularDart development. So, once again the formatter is going to be a callable
+object annotated with the @Formatter annotation which gives a pattern like the following : 
+```Dart
+@Formatter(name: 'myFormatter')
+class myFormatter {
+	List<T> call(List<T> list, ...) {
+		...
+		return aNewFormattedList;
+	}
+}
+```
+The concept of callable object is indicated by the call method inside the class which allows us once the class has
+been instantiated to invoke directly the instance like : 
+```Dart
+var formatter = new myFormatter();
+var newList = formatter(dataList);
+```
+
+In the address book an interesting feature might be to be able to perform searches without caring about lowercase or
+uppercase, to do that a formatter could be great and we are going to implement a doSearch formatter. The characteristics 
+are the following : 
+* Takes as an input a list of contact and a String corresponding to the search
+* Returns a new list with all the contacts whom first or last names match the given string
+
+*/!\ You must explicitly handle the case where the search is null*
+*/!\ Do not forget to register the formatter in the main method*
+
+An example of solution is given below:
+```Dart
+@Formatter(name: "doSearch")
+class SearchFilter {
+  List<Contact> call(List<Contact> contacts, String search) {
+    if (search == null) {
+      return contacts;
+    }
+    return contacts.where(
+        (Contact c) => (
+            c.firstName.toLowerCase().contains(search.toLowerCase()) ||
+            c.lastName.toLowerCase().contains(search.toLowerCase()))
+        ).toList();
+  }
+}
+```
+ 
 # Step 6 - Routing and templating
