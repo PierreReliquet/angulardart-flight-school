@@ -27,5 +27,11 @@ class Tooltip {
         tooltip.remove();
       }
     });
+    window.onHashChange.listen((e) {
+      var tooltip = document.querySelector('#tooltip');
+      if (tooltip != null) {
+        tooltip.remove();
+      }
+    });
   }
 }
