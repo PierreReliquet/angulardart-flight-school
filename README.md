@@ -289,7 +289,156 @@ class ContactList {
 }
 ```
 
-# Step 4 - Components & Decorators
+# Step 4 - Directives aka Components & Decorators
+AngularDart has not yet reached version 1.0 but some major differences can already be noticed. Among them some resources 
+have been renamed which aims at clarifying the use of some APIs such as the directive which was in AngularJS not really
+the easiest API ever written.
+
+In AngularDart directives have been splitted in two sub-categories
+* the decorator which aims at adding behavior to already existing DOM elements. Those are most of the time represented as 
+tag attributes.
+* the component whom implementation is a sub-set of the webcomponents standard. The component aims at creating new tags
+not available in the HTML standard.
+
+The great news about that is that the API is finally consistent with the controller API! Everything is going through annotation
+with selectors. 
+
+Let's dive deeper into those new beasts! 
+
+## Components 
+As usual the first things to do is to create a /lib/components.dart file in which we are going to declare our libraries the dependencies
+and the parts (in our case the part). The content of the file is as expected : 
+```Dart
+library angulardart_flight_school_components;
+
+import 'package:angular/angular.dart';
+import 'package:angulardart_flight_school/model/contact.dart';
+
+part 'components/vcard/vcard.dart';
+```
+
+Then the /lib/components/vcard/vcard.dart must be created as part of the library. This file must follow the follwoing
+rules : 
+* Declare a class named VCard
+* Inside of that VCard class, it must have a *contact* instance variable of type *Contact*
+* This variable should respect a 2-way binding to be updated each time a contact gets updated
+* Finally the class should be a component annotated with the proper @Component annotation
+
+With all the parts tied up together the result appears to be the following file : 
+```Dart
+part of angulardart_flight_school_components;
+
+/**
+ * A VCard component which takes as entry a contact and display it in a standardized way.
+ */
+@Component(
+    selector: 'vcard',
+    publishAs: 'vcard',
+    templateUrl: 'packages/angulardart_flight_school/components/vcard/vcard_component.html',
+    cssUrl: 'packages/angulardart_flight_school/components/vcard/vcard_component.css'
+    
+)
+class VCard {
+  // The NgTwoWay annotation is deprecated but the replacement is
+  // not yet implemented so we need to use this annotation
+  @NgTwoWay('contact')
+  Contact contact;
+}
+```
+Firstly, it can be noticed that the API is really consistent with the @Controller one since we are retrieving 
+the selector and publishAs parameters. Secondly, it can be noticed that we are referencing two files :
+* the template url which is the location (once deployed) where the template of our web component can be found
+* the css url which is the style which is going to be applied to the web component 
+
+*/!\ as expressed in the web component API, the custom component will not be aware of your application style and
+your component style is not going to leak outside of your component. This means that if I have the following template: *
+```Html
+<div class="contact-card">Foo</div>
+```
+* And my app declare the following CSS rule*
+```CSS
+div.contact-card {
+	background-color: black;
+}
+```
+* This rule is going to be ignored since the web component are totally agnostic of the external CSS. In the same
+way if a rule was written in the component CSS, this rule would not be applied to the main app even if it matched some
+elements.* 
+
+The content of the two files is given below:
+```Html
+ <div class="contact-card">
+    <div class="contact-card-inner">
+        <h4>{{vcard.contact.firstName}} {{vcard.contact.lastName | uppercase}}</h4>
+
+        <div class="contact-address">{{vcard.contact.address}}</div>
+        <div class="contact-phone">{{vcard.contact.phone}}</div>
+    </div>
+</div>
+```  
+```CSS
+.contact-card {
+    position:relative;
+    float: left;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.contact-card .contact-card-inner {
+    /*height: 100px;*/
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card:before, .contact-card:after {
+    -moz-transform: rotate(-2deg);
+    -webkit-transform: rotate(-2deg);
+    bottom: 18px;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+    content: "";
+    height: 20%;
+    left: 10px;
+    max-width: 300px;
+    position: absolute;
+    width: 80%;
+    z-index: -2;
+}
+
+.contact-card:after {
+    -moz-transform: rotate(2deg);
+    -webkit-transform: rotate(2deg);
+    left: auto;
+    right: 10px;
+}
+```  
+Then there is two steps remaining : 
+* Adds the VCard class to our module so AngularDart is aware of that class and knows how to handle it if we are using
+the vcard tag inside an HTML template.
+* Use the vcard tag inside the application by replacing the piece of HTML in the template by the vcard tag inside the 
+index.html file. This means replacing : 
+```Html
+<div class="contact-card span4" ng-repeat="contact in contactList.contacts">
+	<div class="contact-card-inner">
+    	<h4>{{contact.firstName}} {{contact.lastName}}</h4>
+        <div class="contact-address">{{contact.address}}</div>
+        <div class="contact-phone">{{contact.phone}}</div>
+    </div>
+</div> 
+```
+With the following line : 
+```Html
+<vcard contact="contact" class="span4" ng-repeat="contact in contactList.contacts"></vcard>
+```
+And this is it! Here is the first component of the ngContacts app, there is now a reusable vcard which can
+be added in any screen of the application.
+
 # Step 5 - Filters aka Formatters
 Within AngularDart the filters have, just like the directives, being renamed in order to clarify their meanings.
 Filters are now called Formatters and this seems logical when we notice that the AngularJS documentation indicates 

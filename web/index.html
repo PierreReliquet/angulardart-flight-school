@@ -55,14 +55,7 @@
   
           <div class="span8">
               <div class="row">
-                  <div class="contact-card span4" ng-repeat="contact in contactList.contacts">
-                      <div class="contact-card-inner">
-                          <h4>{{contact.firstName}} {{contact.lastName}}</h4>
-  
-                          <div class="contact-address">{{contact.address}}</div>
-                          <div class="contact-phone">{{contact.phone}}</div>
-                      </div>
-                  </div>
+                <vcard contact="contact" class="span4" ng-repeat="contact in contactList.contacts"></vcard>
               </div>
           </div>
       </div>
