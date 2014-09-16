@@ -632,6 +632,7 @@ class ContactEdit {
 }
 ```
 The controller is now ready and the view (index.html) must be updated! All the div.row tag must be removed and replaced by the ng-view component. 
+
 */!\ In AngularJS ng-view can be either a decorator or a component but in AngularDart it is only a component*
 
 The div.container element now contains only : 
