@@ -5,13 +5,13 @@ part of angulardart_flight_school_components;
  */
 @Component(
     selector: 'vcard',
-    templateUrl: 'packages/angulardart_flight_school/components/vcard/vcard_component.html',
-    cssUrl: 'packages/angulardart_flight_school/components/vcard/vcard_component.css',
-    publishAs: 'vcard'
+    templateUrl: 'components/vcard/vcard_component.html',
+    cssUrl: 'components/vcard/vcard_component.css',
+    map: const {
+      'contact': '<=>contact'
+    }
 )
-class VCard {
-  // The NgTwoWay annotation is deprecated but the replacement is
-  // not yet implemented so we need to use this annotation
-  @NgTwoWay('contact')
+class VCard implements ScopeAware {
+  Scope scope;
   Contact contact;
 }

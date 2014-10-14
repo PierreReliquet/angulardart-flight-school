@@ -5,7 +5,7 @@ description: A sample contact management app made for the AngularDart Flight Sch
 environment:
   sdk: 1.6.0
 dependencies:
-  angular: 0.14.0
+  angular: 1.0.0
   browser: 0.10.0+2
   js: any
   shadow_dom: any
@@ -16,3 +16,6 @@ transformers:
     - web/partials/edit.html
     - web/partials/list.html
     - web/partials/view.html
+    - lib/components/contact_shortlist/contact_shortlist.html
+    - lib/components/vcard_list/vcard_list.html
+    - lib/components/vcard/vcard_component.html
