@@ -3,7 +3,7 @@ version: 0.0.1
 author: Pierre Reliquet
 description: A sample contact management app made for the AngularDart Flight School given by the GDG Nantes
 environment:
-  sdk: 1.6.0
+  sdk: 1.7.2
 dependencies:
-  angular: 0.14.0
+  angular: 1.0.0
   js: any
