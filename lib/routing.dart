@@ -9,11 +9,11 @@ void addressBookRouter(Router router, RouteViewFactory views) {
           mount: {
             'edit': ngRoute(
                 path: '/edit',
-                view: 'partials/edit.html'
+                viewHtml: '<contact-edit></contact-edit>'
             ),
             'view': ngRoute(
                 path: '/view',
-                view: 'partials/view.html'
+                viewHtml: '<contact-view></contact-view>'
             )
           }),
     'list': ngRoute(

@@ -1,3 +1,5 @@
+## TODO - update the readme for version 1.0
+
 This is a workshop developped for the AngularDart Flight School event in Nantes organized by the GDG.
 
 The aim is to develop a sample of address book to show how powerful is AngularDart.
