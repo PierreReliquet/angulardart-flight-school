@@ -3,7 +3,7 @@ part of angulardart_flight_school_components;
 @Component(
     selector: 'contact-short-list',
     templateUrl: 'components/contact_shortlist/contact_shortlist.html',
-    useNgBaseCss: true
+    useShadowDom: false // we are not using the shadow dom here to be able to display the difference between shadow dom and not
 )
 class ContactShortList implements ScopeAware {
   Scope scope;

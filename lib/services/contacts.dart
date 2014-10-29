@@ -13,4 +13,12 @@ class Contacts {
   
   // Sample getter to illustrate the cool dart syntax for getters 
   List<Contact> get contacts => _contacts;
+  
+  void update(Contact c) {
+    var contact = _contacts.where((Contact c1) => c.id == c1.id).first;
+    contact.firstName = c.firstName;
+    contact.lastName = c.lastName;
+    contact.phone = c.phone;
+    contact.address = c.address;
+  }
 }

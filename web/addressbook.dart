@@ -14,6 +14,8 @@ main() {
           ..bind(Contacts)
           ..bind(VCard)
           ..bind(VCardList)
+          ..bind(ContactEdit)
+          ..bind(ContactView)
           ..bind(ContactShortList)
           ..bind(Tooltip)
           ..bind(SearchFilter)

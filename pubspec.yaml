@@ -3,7 +3,7 @@ version: 0.0.1
 author: Pierre Reliquet
 description: A sample contact management app made for the AngularDart Flight School given by the GDG Nantes
 environment:
-  sdk: 1.6.0
+  sdk: 1.7.2
 dependencies:
   angular: 1.0.0
   browser: 0.10.0+2
@@ -19,3 +19,5 @@ transformers:
     - lib/components/contact_shortlist/contact_shortlist.html
     - lib/components/vcard_list/vcard_list.html
     - lib/components/vcard/vcard_component.html
+    - lib/components/contact_edit/contact_edit.html
+    - lib/components/contact_view/contact_view.html
