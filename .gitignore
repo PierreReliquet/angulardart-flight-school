@@ -3,6 +3,9 @@ build/
 packages/
 .pub
 
+# Eclipse
+.settings
+
 # Or the files created by dart2js.
 *.dart.js
 *.dart.precompiled.js
