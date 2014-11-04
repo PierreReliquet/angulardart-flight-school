@@ -5,8 +5,7 @@ part of angulardart_flight_school_components;
     templateUrl: 'components/contact_shortlist/contact_shortlist.html',
     useShadowDom: false // we are not using the shadow dom here to be able to display the difference between shadow dom and not
 )
-class ContactShortList implements ScopeAware {
-  Scope scope;
+class ContactShortList {
   Contacts contactsSvc;
   String search = "";
   List<Contact> contacts;

@@ -6,12 +6,9 @@ part of angulardart_flight_school_components;
 @Component(
     selector: 'vcard',
     templateUrl: 'components/vcard/vcard_component.html',
-    cssUrl: 'components/vcard/vcard_component.css',
-    map: const {
-      'contact': '<=>contact'
-    }
+    cssUrl: 'components/vcard/vcard_component.css'
 )
-class VCard implements ScopeAware {
-  Scope scope;
+class VCard {
+  @NgTwoWay('contact')
   Contact contact;
 }

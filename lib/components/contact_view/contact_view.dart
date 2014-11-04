@@ -4,8 +4,7 @@ part of angulardart_flight_school_components;
     selector: 'contact-view',
     templateUrl: 'components/contact_view/contact_view.html'
 )
-class ContactView implements ScopeAware {
-  Scope scope;
+class ContactView {
   Contacts contactsSvc;
   Contact contact;
   RouteProvider routeProvider;

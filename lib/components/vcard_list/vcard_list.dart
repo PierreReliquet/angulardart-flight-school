@@ -4,8 +4,7 @@ part of angulardart_flight_school_components;
     selector: 'vcard-list',
     templateUrl: 'components/vcard_list/vcard_list.html'
 )
-class VCardList implements ScopeAware {
-  Scope scope;
+class VCardList {
   Contacts contactsSvc;
   List<Contact> contacts;
  
