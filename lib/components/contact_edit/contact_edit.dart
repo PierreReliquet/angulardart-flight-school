@@ -4,16 +4,12 @@ part of angulardart_flight_school_components;
     selector: 'contact-edit',
     templateUrl: 'components/contact_edit/contact_edit.html'
 )
-class ContactEdit {
-  Contacts contactsSvc;
-  Contact contact;
-  RouteProvider routeProvider;
-
-  ContactEdit(this.contactsSvc, this.routeProvider) {
-    contact = contactsSvc.contacts.where((c) => c.id == int.parse(routeProvider.parameters['id'])).first;
-  } 
+class ContactEdit extends AbstractContact {
+  
+  ContactEdit(Contacts contactsSvc, RouteProvider routeProvider, Router router) : super(contactsSvc, routeProvider, router);
   
   void update() {
-    contactsSvc.update(contact);
+    _contactsSvc.update(contact);
+    _router.go('contact.view', {'id': contact.id});
   }
 }

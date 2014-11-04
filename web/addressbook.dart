@@ -13,6 +13,7 @@ class AddressBook extends Module {
     bind(VCard);
     bind(VCardList);
     bind(ContactEdit);
+    bind(ContactAdd);
     bind(ContactView);
     bind(ContactShortList);
     bind(Tooltip);

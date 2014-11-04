@@ -8,6 +8,10 @@ void addressBookRouter(Router router, RouteViewFactory views) {
       path: '/list',
       view: 'partials/list.html',
       defaultRoute : true),
+    'new': ngRoute(
+        path:'/new',
+        viewHtml: '<contact-add></contact-add>'
+    ),
     'contact': ngRoute(
       path: '/contact/:id',
       mount: {

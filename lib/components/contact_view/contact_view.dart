@@ -4,12 +4,8 @@ part of angulardart_flight_school_components;
     selector: 'contact-view',
     templateUrl: 'components/contact_view/contact_view.html'
 )
-class ContactView {
-  Contacts contactsSvc;
-  Contact contact;
-  RouteProvider routeProvider;
+class ContactView extends AbstractContact {
+  
+  ContactView(Contacts contactsSvc, RouteProvider routeProvider, Router router) : super(contactsSvc, routeProvider, router);
  
-  ContactView(this.contactsSvc, this.routeProvider) {
-    contact = contactsSvc.contacts.where((c) => c.id == int.parse(routeProvider.parameters['id'])).first;
-  } 
 }

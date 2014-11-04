@@ -11,24 +11,24 @@ class Contact {
   String address;
   String phone;
 
-  Contact(this.id, this.lastName, this.firstName, this.address, this.phone);
-  Contact.fromJson(String s) {
-    Map m = JSON.decode(s);
-    this.id = int.parse(m['id']);
-    this.lastName = m['lastName'];
-    this.firstName = m['firstName'];
-    this.address = m['address'];
-    this.phone =m['phone'];
+  Contact.create(this.id) {
+    this.firstName = "";
+    this.lastName = "";
+    this.address = "";
+    this.phone = "";
   }
   
-  Map toJson() {
+  Contact.fromMap(Map m):this(m['id'], m['lastName'], m['firstName'], m['address'], m['phone']);
+  
+  Contact(this.id, this.lastName, this.firstName, this.address, this.phone);
+  
+  static Map toJson(Contact c) {
     return {
-      id: id,
-      firstName: firstName,
-      lastName: lastName,
-      address: address,
-      phone: phone
+      'id': c.id,
+      'firstName': c.firstName,
+      'lastName': c.lastName,
+      'address': c.address,
+      'phone': c.phone
     };
   }
-  
 }

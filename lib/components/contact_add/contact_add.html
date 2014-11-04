@@ -1,0 +1,44 @@
+<div class="row" contact-edit>
+    <div class="span12">
+        <div class="well">
+            <h2>Add a new contact</h2>
+
+            <form ng-submit="save()" class="form-horizontal">
+                <div class="control-group">
+                    <label for="firstName" class="control-label">First name</label>
+
+                    <div class="controls">
+                        <input type="text" name="firstName" id="firstName" class="input-xlarge" ng-model="contact.firstName"/><br/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="lastName" class="control-label">Last name</label>
+
+                    <div class="controls">
+                        <input type="text" name="lastName" id="lastName" class="input-xlarge" ng-model="contact.lastName"/><br/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="address" class="control-label">Address</label>
+
+                    <div class="controls">
+                        <textarea rows="3" name="address" id="address" class="input-xlarge"  ng-model="contact.address"></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="phone" class="control-label">Phone</label>
+
+                    <div class="controls">
+                        <input type="text" name="phone" id="phone" class="input-xlarge" ng-model="contact.phone"/><br/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" value="Save" class="btn btn-primary"/>
+                        <a href="/#/list" class="btn btn-link">Back to list</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
