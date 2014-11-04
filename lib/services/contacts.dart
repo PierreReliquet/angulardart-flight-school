@@ -15,18 +15,18 @@ class Contacts {
   // Sample getter to illustrate the cool dart syntax for getters 
   List<Contact> get contacts => _contacts;
   
-  
   Contacts() {
-    List<Contact> contacts = JSON.decode(window.localStorage['contacts']).map((map) => new Contact.fromMap(map)).toList();
-    if (contacts != null && !contacts.isEmpty){
-      _contacts = contacts;
-    } else {
+    String stored = window.localStorage['contacts'];
+    if (stored == null) {
       _contacts = _initialContacts;
+      return;
     }
     
-    window.onBeforeUnload.listen((_) { 
-      window.localStorage['contacts'] = JSON.encode(_contacts, toEncodable: Contact.toJson);
-    });
+    _contacts = JSON.decode(stored).map((map) => new Contact.fromMap(map)).toList();
+  }
+  
+  Contact create() {
+    return new Contact.create(_contacts.length);
   }
   
   void update(Contact c) {
@@ -35,13 +35,15 @@ class Contacts {
     contact.lastName = c.lastName;
     contact.phone = c.phone;
     contact.address = c.address;
-  }
-  
-  Contact create() {
-    return new Contact.create(_contacts.length);
+    _commit();
   }
   
   void save(Contact contact) {
     _contacts.add(contact);
+    _commit();
+  }
+  
+  _commit() {
+    window.localStorage['contacts'] = JSON.encode(_contacts, toEncodable: Contact.toJson);
   }
 }
