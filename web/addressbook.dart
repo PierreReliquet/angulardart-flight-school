@@ -1,6 +1,7 @@
 library addressbook;
 import 'package:angular/application_factory.dart';
 import 'package:angular/angular.dart';
+import 'package:angulardart_flight_school/decorators/href_router.dart';
 import 'package:angulardart_flight_school/services.dart';
 import 'package:angulardart_flight_school/components.dart';
 import 'package:angulardart_flight_school/decorators.dart';
@@ -26,5 +27,8 @@ class AddressBook extends Module {
 main() {
   applicationFactory()
       ..addModule(new AddressBook())
+      ..addModule(new Module()
+        ..bind(HrefRouter)
+      )
       ..run();
 }
