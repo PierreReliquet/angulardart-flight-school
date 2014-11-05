@@ -19,10 +19,11 @@ import 'package:angular/formatter/module_internal.dart' as import_12;
 import 'package:angular/animate/module.dart' as import_13;
 import 'package:angular/routing/module.dart' as import_14;
 import 'package:angular/cache/js_cache_register.dart' as import_15;
-import 'package:angulardart_flight_school/decorators.dart' as import_16;
-import 'package:angulardart_flight_school/services.dart' as import_17;
-import 'package:angulardart_flight_school/formatters.dart' as import_18;
-import 'package:angulardart_flight_school/components.dart' as import_19;
+import 'package:angulardart_flight_school/decorators/href_router.dart' as import_16;
+import 'package:angulardart_flight_school/decorators.dart' as import_17;
+import 'package:angulardart_flight_school/services.dart' as import_18;
+import 'package:angulardart_flight_school/formatters.dart' as import_19;
+import 'package:angulardart_flight_school/components.dart' as import_20;
 Module get metadataModule => new Module()
     ..bind(MetadataExtractor, toValue: new _StaticMetadataExtractor());
 
@@ -493,31 +494,34 @@ final Map<Type, Object> typeAnnotations = {
   import_15.JsCacheRegister: const [
     const import_1.Injectable(),
   ],
-  import_16.Tooltip: const [
+  import_16.HrefRouter: const [
+    const import_2.Decorator(selector: '[href-router]'),
+  ],
+  import_17.Tooltip: const [
     const import_2.Decorator(selector: '[tooltip]', map: const {'tooltip': '=>tooltip'}),
   ],
-  import_17.Contacts: const [
+  import_18.Contacts: const [
     const import_1.Injectable(),
   ],
-  import_18.SearchFilter: const [
+  import_19.SearchFilter: const [
     const import_2.Formatter(name: "doSearch"),
   ],
-  import_19.VCard: const [
+  import_20.VCard: const [
     const import_2.Component(selector: 'vcard', templateUrl: 'components/vcard/vcard_component.html', cssUrl: 'components/vcard/vcard_component.css', map: const {'contact': '<=>contact'}),
   ],
-  import_19.VCardList: const [
+  import_20.VCardList: const [
     const import_2.Component(selector: 'vcard-list', templateUrl: 'components/vcard_list/vcard_list.html'),
   ],
-  import_19.ContactShortList: const [
+  import_20.ContactShortList: const [
     const import_2.Component(selector: 'contact-short-list', templateUrl: 'components/contact_shortlist/contact_shortlist.html', useShadowDom: false),
   ],
-  import_19.ContactAdd: const [
+  import_20.ContactAdd: const [
     const import_2.Component(selector: 'contact-add', templateUrl: 'components/contact_add/contact_add.html'),
   ],
-  import_19.ContactEdit: const [
+  import_20.ContactEdit: const [
     const import_2.Component(selector: 'contact-edit', templateUrl: 'components/contact_edit/contact_edit.html'),
   ],
-  import_19.ContactView: const [
+  import_20.ContactView: const [
     const import_2.Component(selector: 'contact-view', templateUrl: 'components/contact_view/contact_view.html'),
   ],
 };

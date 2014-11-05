@@ -27,10 +27,11 @@ import 'package:angular/routing/module.dart' as import_21;
 import 'package:route_hierarchical/client.dart' as import_22;
 import 'package:angular/application.dart' as import_23;
 import 'package:angular/cache/js_cache_register.dart' as import_24;
-import 'package:angulardart_flight_school/decorators.dart' as import_25;
-import 'package:angulardart_flight_school/services.dart' as import_26;
-import 'package:angulardart_flight_school/formatters.dart' as import_27;
-import 'package:angulardart_flight_school/components.dart' as import_28;
+import 'package:angulardart_flight_school/decorators/href_router.dart' as import_25;
+import 'package:angulardart_flight_school/decorators.dart' as import_26;
+import 'package:angulardart_flight_school/services.dart' as import_27;
+import 'package:angulardart_flight_school/formatters.dart' as import_28;
+import 'package:angulardart_flight_school/components.dart' as import_29;
 
 final Key _KEY_ExceptionHandler = new Key(import_1.ExceptionHandler);
 final Key _KEY_BrowserCookies = new Key(import_0.BrowserCookies);
@@ -115,7 +116,7 @@ final Key _KEY_RouteInitializer = new Key(import_21.RouteInitializer);
 final Key _KEY_Router = new Key(import_22.Router);
 final Key _KEY_Application = new Key(import_23.Application);
 final Key _KEY_NgRoutingHelper = new Key(import_21.NgRoutingHelper);
-final Key _KEY_Contacts = new Key(import_26.Contacts);
+final Key _KEY_Contacts = new Key(import_27.Contacts);
 final Key _KEY_RouteProvider = new Key(import_21.RouteProvider);
 final Map<Type, Function> typeFactories = <Type, Function>{
   import_0.Animate: () => new import_0.Animate(),
@@ -239,15 +240,16 @@ final Map<Type, Function> typeFactories = <Type, Function>{
   import_21.NgView: (a1, a2, a3, a4, a5, a6) => new import_21.NgView(a1, a2, a3, a4, a5, a6),
   import_21.NgBindRoute: (a1, a2, a3) => new import_21.NgBindRoute(a1, a2, a3),
   import_24.JsCacheRegister: (a1) => new import_24.JsCacheRegister(a1),
-  import_25.Tooltip: (a1) => new import_25.Tooltip(a1),
-  import_26.Contacts: () => new import_26.Contacts(),
-  import_27.SearchFilter: () => new import_27.SearchFilter(),
-  import_28.VCard: () => new import_28.VCard(),
-  import_28.VCardList: (a1) => new import_28.VCardList(a1),
-  import_28.ContactShortList: (a1) => new import_28.ContactShortList(a1),
-  import_28.ContactAdd: (a1, a2) => new import_28.ContactAdd(a1, a2),
-  import_28.ContactEdit: (a1, a2, a3) => new import_28.ContactEdit(a1, a2, a3),
-  import_28.ContactView: (a1, a2, a3) => new import_28.ContactView(a1, a2, a3),
+  import_25.HrefRouter: (a1, a2) => new import_25.HrefRouter(a1, a2),
+  import_26.Tooltip: (a1) => new import_26.Tooltip(a1),
+  import_27.Contacts: () => new import_27.Contacts(),
+  import_28.SearchFilter: () => new import_28.SearchFilter(),
+  import_29.VCard: () => new import_29.VCard(),
+  import_29.VCardList: (a1) => new import_29.VCardList(a1),
+  import_29.ContactShortList: (a1) => new import_29.ContactShortList(a1),
+  import_29.ContactAdd: (a1, a2) => new import_29.ContactAdd(a1, a2),
+  import_29.ContactEdit: (a1, a2, a3) => new import_29.ContactEdit(a1, a2, a3),
+  import_29.ContactView: (a1, a2, a3) => new import_29.ContactView(a1, a2, a3),
   import_2.Profiler: () => new import_2.Profiler(),
 };
 final Map<Type, List<Key>> parameterKeys = {
@@ -372,15 +374,16 @@ final Map<Type, List<Key>> parameterKeys = {
   import_21.NgView: [_KEY_Element, _KEY_ViewFactoryCache, _KEY_DirectiveInjector, _KEY_Injector, _KEY_Router, _KEY_Scope],
   import_21.NgBindRoute: [_KEY_Router, _KEY_DirectiveInjector, _KEY_NgRoutingHelper],
   import_24.JsCacheRegister: [_KEY_CacheRegister],
-  import_25.Tooltip: [_KEY_Element],
-  import_26.Contacts: const[],
-  import_27.SearchFilter: const[],
-  import_28.VCard: const[],
-  import_28.VCardList: [_KEY_Contacts],
-  import_28.ContactShortList: [_KEY_Contacts],
-  import_28.ContactAdd: [_KEY_Contacts, _KEY_Router],
-  import_28.ContactEdit: [_KEY_Contacts, _KEY_RouteProvider, _KEY_Router],
-  import_28.ContactView: [_KEY_Contacts, _KEY_RouteProvider, _KEY_Router],
+  import_25.HrefRouter: [_KEY_Element, _KEY_Router],
+  import_26.Tooltip: [_KEY_Element],
+  import_27.Contacts: const[],
+  import_28.SearchFilter: const[],
+  import_29.VCard: const[],
+  import_29.VCardList: [_KEY_Contacts],
+  import_29.ContactShortList: [_KEY_Contacts],
+  import_29.ContactAdd: [_KEY_Contacts, _KEY_Router],
+  import_29.ContactEdit: [_KEY_Contacts, _KEY_RouteProvider, _KEY_Router],
+  import_29.ContactView: [_KEY_Contacts, _KEY_RouteProvider, _KEY_Router],
   import_2.Profiler: const[],
 };
 setStaticReflectorAsDefault() => Module.DEFAULT_REFLECTOR = new GeneratedTypeFactories(typeFactories, parameterKeys);
