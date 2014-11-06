@@ -8,11 +8,10 @@ dependencies:
   angular: 1.0.0
   browser: 0.10.0+2
   js: any
-  shadow_dom: any
+  web_components: any
 transformers:
 - angular:
-   # https://github.com/angular/angular.dart/issues/1279 for now we need to add manually the files to include in the transformer
-   html_files:
+    html_files:
     - web/partials/edit.html
     - web/partials/list.html
     - web/partials/view.html
