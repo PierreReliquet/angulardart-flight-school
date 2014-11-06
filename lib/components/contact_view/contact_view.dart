@@ -8,4 +8,7 @@ class ContactView extends AbstractContact {
   
   ContactView(Contacts contactsSvc, RouteProvider routeProvider, Router router) : super(contactsSvc, routeProvider, router);
  
+  edit() {
+    _router.go('contact.edit', {'id': contact.id});
+  }
 }
